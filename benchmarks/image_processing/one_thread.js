@@ -1,10 +1,10 @@
 const path = require('path')
+const crypto = require('crypto')
 const fs = require('fs')
 
 const express = require('express')
 const multer = require('multer')
-
-const WorkerPool = require('./lib/workerPool')
+const sharp = require('sharp')
 
 const uploadsFolder = path.resolve(__dirname, 'uploads')
 
@@ -13,9 +13,6 @@ const app = express()
 
 app.use(express.static(uploadsFolder))
 app.use(express.json())
-
-// console.log(os.cpus().length)
-const pool = new WorkerPool(12, path.resolve(__dirname, 'testWorker.js'))
 
 if (!fs.existsSync(uploadsFolder)) {
   fs.mkdirSync(uploadsFolder)
@@ -28,18 +25,21 @@ function asyncWrapper(fn) {
       .catch((err) => next(err))
   }
 }
-
 app.post(
   '/',
   upload.single('image'),
   asyncWrapper(async (req, res) => {
-    const result = await pool.run(req.file)
-    return result
+    // const result = pool.run(req.file)
+    const { buffer, originalname } = req.file
+    const webpName = originalname.split('.').slice(0, -1).join('') + '.webp'
+    const uuid = crypto.randomUUID()
+    const newFileName = `${uuid}-${webpName}`
+    await sharp(buffer)
+      .webp({ quality: 80 })
+      .toFile(path.resolve(__dirname, 'uploads', newFileName))
+
+    return { url: `http://127.0.0.1:3000/${newFileName}` }
   })
 )
-
-setInterval(() => {
-  console.log(pool.queue.length)
-}, 1000)
 
 app.listen(3000)
