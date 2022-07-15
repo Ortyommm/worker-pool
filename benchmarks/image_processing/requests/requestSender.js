@@ -8,7 +8,6 @@ const imageFile = fs.readFileSync(path.resolve(__dirname, 'test-image.jpg'))
 
 const promises = []
 
-let responses = []
 console.time('Image processing')
 for (let i = 0; i < 30; i++) {
   let data = new FormData()
@@ -22,7 +21,6 @@ for (let i = 0; i < 30; i++) {
         },
       })
       .then((response) => {
-        responses.push(response.data)
         return response
       })
       .catch((err) => console.error(err))

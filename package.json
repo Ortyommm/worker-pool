@@ -6,7 +6,12 @@
   "scripts": {
     "image:one": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/image_processing/one_thread.js",
     "image:workers": "node benchmarks/image_processing/with_workers.js",
-    "image:bench": " node benchmarks/image_processing/requests/requestSender.js"
+    "image:workers12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/image_processing/with_workers.js",
+    "image:bench": "node benchmarks/image_processing/requests/requestSender.js",
+    "password:one": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/password_processing/one_thread.js",
+    "password:workers": "node benchmarks/password_processing/with_workers.js",
+    "password:workers12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/password_processing/with_workers.js",
+    "password:bench": "node benchmarks/password_processing/requests/requestSender.js"
   },
   "dependencies": {
     "axios": "^0.27.2",
