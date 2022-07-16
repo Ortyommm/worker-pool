@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const util = require('util')
 
 const express = require('express')
+const { benchPasswords } = require('./requests/requestSender.js')
 
 const app = express()
 
@@ -32,4 +33,4 @@ app.post(
   })
 )
 
-app.listen(3000)
+app.listen(3000, benchPasswords)

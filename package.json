@@ -4,14 +4,18 @@
   "main": "one_thread.js",
   "license": "MIT",
   "scripts": {
-    "image:one": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/image_processing/one_thread.js",
+    "image:one": "node benchmarks/image_processing/one_thread.js",
     "image:workers": "node benchmarks/image_processing/with_workers.js",
+    "image:one12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/image_processing/one_thread.js",
     "image:workers12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/image_processing/with_workers.js",
-    "image:bench": "node benchmarks/image_processing/requests/requestSender.js",
-    "password:one": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/password_processing/one_thread.js",
+    "password:one": "node benchmarks/password_processing/one_thread.js",
     "password:workers": "node benchmarks/password_processing/with_workers.js",
+    "password:one12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/password_processing/one_thread.js",
     "password:workers12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/password_processing/with_workers.js",
-    "password:bench": "node benchmarks/password_processing/requests/requestSender.js"
+    "synth:one": "node benchmarks/synthetics/one_thread.js",
+    "synth:workers": "node benchmarks/synthetics/with_workers.js",
+    "synth:one12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/synthetics/one_thread.js",
+    "synth:workers12": "cross-env UV_THREADPOOL_SIZE=12 node benchmarks/synthetics/with_workers.js"
   },
   "dependencies": {
     "axios": "^0.27.2",

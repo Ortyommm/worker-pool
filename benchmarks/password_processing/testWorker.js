@@ -1,12 +1,13 @@
 const { isMainThread, parentPort, workerData } = require('worker_threads')
 const crypto = require('crypto')
 const util = require('util')
+const { workerDecorator } = require('../../lib/helpers.js')
 
 if (isMainThread) {
   throw new Error('Script must be executed as a worker')
 }
 
-parentPort.on('message', processData)
+parentPort.on('message', workerDecorator(processData))
 
 async function processData(data) {
   // console.log("was here", data);
@@ -14,5 +15,5 @@ async function processData(data) {
     await util.promisify(crypto.pbkdf2)(data, 'salt', 1000000, 64, 'sha512')
   ).toString('hex')
 
-  parentPort.postMessage({ password })
+  this.postMessage(password)
 }

@@ -3,7 +3,8 @@ const fs = require('fs')
 
 const express = require('express')
 
-const WorkerPool = require('../../lib/workerPool')
+const WorkerPool = require('../../lib/WorkerPool.js')
+const { benchPasswords } = require('./requests/requestSender.js')
 
 const app = express()
 
@@ -27,4 +28,4 @@ app.post(
   })
 )
 
-app.listen(3000)
+app.listen(3000, benchPasswords)
