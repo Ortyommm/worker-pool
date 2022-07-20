@@ -2,12 +2,13 @@ const { isMainThread, parentPort, workerData } = require('worker_threads')
 const crypto = require('crypto')
 const sharp = require('sharp')
 const path = require('path')
+const workerDecorator = require('../../lib/WorkerDecorator')
 
 if (isMainThread) {
   throw new Error('Script must be executed as a worker')
 }
 
-parentPort.on('message', processData)
+parentPort.on('message', workerDecorator(processData))
 
 async function processData(data) {
   // console.log("was here", data);
@@ -21,5 +22,7 @@ async function processData(data) {
     .webp({ quality: 80 })
     .toFile(path.resolve(__dirname, 'uploads', newFileName))
 
-  parentPort.postMessage({ url: `http://127.0.0.1:3000/${newFileName}` })
+  this.postMessage({
+    url: `http://127.0.0.1:3000/${newFileName}`,
+  })
 }

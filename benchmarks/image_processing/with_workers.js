@@ -4,7 +4,8 @@ const fs = require('fs')
 const express = require('express')
 const multer = require('multer')
 
-const WorkerPool = require('../../lib/workerPool')
+const WorkerPool = require('../../lib/WorkerPool.js')
+const { benchImages } = require('./requests/requestSender.js')
 
 const uploadsFolder = path.resolve(__dirname, 'uploads')
 
@@ -37,5 +38,6 @@ app.post(
     return result
   })
 )
-
-app.listen(3000)
+// longpool
+// id
+app.listen(3000, benchImages)

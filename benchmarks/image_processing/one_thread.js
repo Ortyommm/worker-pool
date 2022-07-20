@@ -5,6 +5,7 @@ const fs = require('fs')
 const express = require('express')
 const multer = require('multer')
 const sharp = require('sharp')
+const {benchImages} = require("./requests/requestSender.js");
 
 const uploadsFolder = path.resolve(__dirname, 'uploads')
 
@@ -42,4 +43,4 @@ app.post(
   })
 )
 
-app.listen(3000)
+app.listen(3000, benchImages)
