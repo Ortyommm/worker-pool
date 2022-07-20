@@ -1,7 +1,7 @@
 const { isMainThread, parentPort, workerData } = require('worker_threads')
 const crypto = require('crypto')
 const util = require('util')
-const { workerDecorator } = require('../../lib/helpers.js')
+const workerDecorator = require('../../lib/workerDecorator.js')
 
 if (isMainThread) {
   throw new Error('Script must be executed as a worker')
