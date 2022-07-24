@@ -10,6 +10,7 @@ const app = express()
 
 app.use(express.json())
 
+// My cpu has 6 cores and 12 threads. Efficiency does not increase when using more than 6 workers
 const pool = new WorkerPool(12, path.resolve(__dirname, 'testWorker.js'))
 
 function asyncWrapper(fn) {
