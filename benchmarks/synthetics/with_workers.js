@@ -11,7 +11,7 @@ const app = express()
 app.use(express.json())
 
 //TODO 1
-const pool = new WorkerPool(1, path.resolve(__dirname, 'testWorker.js'))
+const pool = new WorkerPool(12, path.resolve(__dirname, 'testWorker.js'))
 
 function asyncWrapper(fn) {
   return (req, res, next) => {
