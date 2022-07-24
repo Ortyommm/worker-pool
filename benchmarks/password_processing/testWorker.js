@@ -7,7 +7,7 @@ if (isMainThread) {
   throw new Error('Script must be executed as a worker')
 }
 
-parentPort.on('message', workerDecorator(processData))
+parentPort.on('message', processData)
 
 async function processData(data) {
   // console.log("was here", data);
@@ -15,5 +15,5 @@ async function processData(data) {
     await util.promisify(crypto.pbkdf2)(data, 'salt', 1000000, 64, 'sha512')
   ).toString('hex')
 
-  this.postMessage(password)
+  parentPort.postMessage(password)
 }

@@ -8,7 +8,7 @@ if (isMainThread) {
   throw new Error('Script must be executed as a worker')
 }
 
-parentPort.on('message', workerDecorator(processData))
+parentPort.on('message', processData)
 
 async function processData(data) {
   // console.log("was here", data);
@@ -22,7 +22,7 @@ async function processData(data) {
     .webp({ quality: 80 })
     .toFile(path.resolve(__dirname, 'uploads', newFileName))
 
-  this.postMessage({
+  parentPort.postMessage({
     url: `http://127.0.0.1:3000/${newFileName}`,
   })
 }

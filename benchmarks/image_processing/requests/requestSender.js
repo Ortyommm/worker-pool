@@ -12,7 +12,6 @@ for (let i = 0; i < imagesCount; i++) {
 }
 
 function benchImages() {
-  const responses = []
   const promises = []
 
   console.time('Image processing')
@@ -29,7 +28,6 @@ function benchImages() {
           maxBodyLength: Infinity,
         })
         .then((response) => {
-          responses.push(response.data)
           return response
         })
         .catch((err) => console.error(err))

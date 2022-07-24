@@ -8,9 +8,9 @@ if (isMainThread) {
   throw new Error('Script must be executed as a worker')
 }
 
-parentPort.on('message', workerDecorator(processData))
+parentPort.on('message', processData)
 
 function processData(number) {
   const array = processArray(arr, number)
-  this.postMessage(array)
+  parentPort.postMessage(array)
 }
